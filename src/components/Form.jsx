@@ -4,12 +4,18 @@ import * as listValidators from './../constants/listValidators.js'
 import { initStateForm, reducerForm } from '../services/formReducer';
 import * as actions from './../constants/actionFormList.js';
 import ErrorCaption from './ErrorCaption';
+import { sendFormData } from '../services/connectionService';
+import SendMessageCaption from './SendMessageCaption';
 
 const Form = () => {
     const [stateForm, dispatch] = useReducer(reducerForm, initStateForm);
     const [isValidForm, setIsValidForm] = useState(true);
+    const [stausQuery, setStatusQuery] = useState(null);
+    const [messageQuery, setMessageQuery] = useState('');
+    const [isSend, setIsSend] = useState(false);
 
     const updateStateElement = action => {
+        if (!isValidForm) setIsValidForm(true);
         dispatch(action);
     }
 
@@ -20,7 +26,7 @@ const Form = () => {
 
     const validationAllField = () => {
         let result = true;
-        
+
         Object.keys(stateForm).forEach(key => {
             let resultValidator = '';
             const validators = listValidators[key] && listValidators[key].validatorsFout ? listValidators[key].validatorsFout : [];
@@ -37,21 +43,47 @@ const Form = () => {
                     break;
                 }
             }
-            console.log(key);
         });
-        
+
         return result;
     }
 
-    const handlerSubmit = e => {
+    const clearForm=()=>{
+        let action = undefined;
+        Object.keys(stateForm).forEach(key=>{
+            action = actions.actionError(key);
+            sendAction(action,'');
+            action = actions.actionValue(key);
+            sendAction(action,'');
+            action = actions.actionValid(key);
+            sendAction(action,true);
+            action = actions.actionTouch(key);
+            sendAction(action,false);
+        });
+    }
+
+    const hideMessage=()=>{
+        setMessageQuery('');
+        setStatusQuery('');
+    }
+
+    const handlerSubmit = async e => {
         e.preventDefault();
         setIsValidForm(true);
         const isValid = validationAllField();
         setIsValidForm(isValid);
         if (isValid) {
-            alert('ok');
-        } else {
-            //alert('bad');
+            setIsSend(true);
+            const formData = {};
+            Object.keys(stateForm).forEach(key => {
+                formData[key] = stateForm[key].value;
+            });
+            let result = await sendFormData(formData, 'normal1');
+            setStatusQuery(result.status);
+            setMessageQuery(result.message);
+            if (result.status==='success') clearForm();
+            setIsSend(false);
+            setTimeout(hideMessage,5000);
         }
     }
 
@@ -123,9 +155,25 @@ const Form = () => {
                 validators={listValidators.message}
             />
             <div className='form-group'>
-                <button className='btn btn-primary'>Отправить</button>
+                <button disabled={isSend} className='btn btn-primary'>Отправить</button>
             </div>
             {!isValidForm ? <ErrorCaption dataError='Все поля не должны содержать ошибок!' /> : undefined}
+            {stausQuery ?
+                <SendMessageCaption
+                    message={messageQuery}
+                    addingClass={((typeClass) => {
+                        switch (typeClass) {
+                            case 'success':
+                                return 'has-success-text';
+                            case 'error':
+                                return 'has-error-text';
+                            default:
+                                return '';
+                                break;
+                        }
+                    })(stausQuery)}
+                /> :
+                undefined}
         </form>
     );
 }

@@ -1,4 +1,4 @@
-import { countWords, emailValidator, maxLengthMessage, maxSymbolInWord, minSymbolInWord, requaired, requairedMask, validPhone } from "../services/validators";
+import { countWords, emailValidator, maxLengthMessage, maxSymbolInWord, minLengthMessage, minSymbolInWord, requaired, requairedMask, validPhone } from "../services/validators";
 import * as constants from "./../constants/formConsts.js";
 
 const cntWords = countWords(constants.COUNT_WORD);
@@ -10,6 +10,7 @@ const validPhoneNumber = validPhone(constants.MASK_PHONE);
 const requairedAll = requaired();
 const requairedDate = requaired(true);
 const maxLengthMess = maxLengthMessage(constants.MAX_LENGTH_MESSAGE);
+const minLengthMess = minLengthMessage(constants.MIN_LENGTH_MESSAGE);
 
 export const fullName = {
     validatorsFout: [requairedAll, cntWordsStrict, minLengthWord, maxLengthWord],
@@ -29,6 +30,6 @@ export const birthday = {
 };
 
 export const message = {
-    validatorsFout: [requairedAll, maxLengthMess],
-    validatorsChange: [maxLengthMess]
+    validatorsFout: [requairedAll, maxLengthMess, minLengthMess],
+    validatorsChange: [maxLengthMess, minLengthMess]
 };

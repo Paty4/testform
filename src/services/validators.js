@@ -11,6 +11,10 @@ export const maxLengthMessage = maxLength => valueString => {
     return valueString && valueString.length <= maxLength ? false : `Максисальная длина сообщения ${maxLength} символов`;
 }
 
+export const minLengthMessage = minLength => valueString => {
+    return valueString && valueString.length > minLength ? false : `Минимальная длина сообщения ${minLength} символов`;
+}
+
 export const validPhone = valueMaskPhone => valueString => {
     const lengthCountryCode = valueMaskPhone.replace(/\D/g,'').length;
     const lenghtNumberPhone = valueMaskPhone.replace(/[^_]+/g,'').length;
@@ -41,6 +45,8 @@ export const maxSymbolInWord = maxValue => valueString => {
     const lengthWords = words.map(item => item.length).filter(item => item > maxValue);
     return lengthWords.length > 0 ? `Слова должны содержить максимум ${maxValue} символа(ов)` : false;
 }
+
+
 
 export const emailValidator = valueString => {
     const emailValid = valueString.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);

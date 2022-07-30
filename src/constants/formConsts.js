@@ -8,3 +8,5 @@ export const MAX_LENGTH_WORD = 30;
 export const MASK_PHONE = '+7 (___) ___-__-__';
 //максимальная длина сообщения
 export const MAX_LENGTH_MESSAGE = 300;
+//минимальная длина сообщения
+export const MIN_LENGTH_MESSAGE = 10;

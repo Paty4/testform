@@ -1,3 +1,5 @@
+import * as constants from "./../constants/formConsts.js";
+
 export const initStateForm = {
     fullName: {
         isTouch: false,
@@ -45,7 +47,7 @@ const getStateObject = (state, action, nameElement, value) => {
             resultObj[nameElement].isTouch = value;
             break;
         case 'setValue':
-            resultObj[nameElement].value = value;
+            resultObj[nameElement].value = nameElement === 'phone' && !value ? constants.MASK_PHONE : value;
             break;
         case 'setError':
             resultObj[nameElement].error = value;

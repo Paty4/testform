@@ -15,12 +15,19 @@
   color: white;
 }
 
-.has-error-text {
-  color: #a94442;
+.has-text {
   font-size: small;
   text-align: left;
   padding-top: 0;
   padding-left: 5px;
+}
+
+.has-error-text {
+  color: #a94442;
+}
+
+.has-success-text {
+  color: #3c763d;
 }
 
 .form-group-ext {
