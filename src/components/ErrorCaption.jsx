@@ -1,3 +1,7 @@
+/* 
+Элемен ошибки
+Вход: текст ошибки
+ */
 import React from 'react';
 
 const ErrorCaption = ({dataError}) => {

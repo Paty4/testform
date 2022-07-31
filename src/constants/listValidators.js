@@ -1,3 +1,6 @@
+/* 
+    настройка применяемых для полей валидаторов
+ */
 import { countWords, emailValidator, maxLengthMessage, maxSymbolInWord, minLengthMessage, minSymbolInWord, requaired, requairedMask, validPhone } from "../services/validators";
 import * as constants from "./../constants/formConsts.js";
 

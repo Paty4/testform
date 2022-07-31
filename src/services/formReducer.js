@@ -1,3 +1,6 @@
+/* 
+    reducer и state для управления элементами формы
+ */
 import * as constants from "./../constants/formConsts.js";
 
 export const initStateForm = {

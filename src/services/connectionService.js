@@ -1,3 +1,15 @@
+/* 
+    сервис по отправке данных на сервер
+    вход: 
+        1. данные для отправки
+        2. statusMode если normal то обращение на точку без ошибки, что либо другое на точку с ошибкой
+    Выход:
+        результат ответа сервера JSON
+        {
+            status: "success" || "error"
+            message: сообщение
+        }
+ */
 import * as gConstants from './../constants/globalConst.js';
 
 export const sendFormData = async (data, statusMode = 'normal') => {

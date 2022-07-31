@@ -1,3 +1,6 @@
+/* 
+Основная форма
+ */
 import React, { useReducer, useState } from 'react';
 import InputExt from './InputExt';
 import * as listValidators from './../constants/listValidators.js'
@@ -169,7 +172,6 @@ const Form = () => {
                                 return 'has-error-text';
                             default:
                                 return '';
-                                break;
                         }
                     })(stausQuery)}
                 /> :

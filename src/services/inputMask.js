@@ -1,3 +1,9 @@
+/* 
+    Сервис по формированию строки номера телефона из маски (маска прописана в константах формы)
+    заменяются все символы "_" на цифры
+    Вход: вводимая строка
+    Выход: строка по маске
+ */
 import * as constants from "./../constants/formConsts.js";
 
 export const getMaskData = (valueString, typeMask = null) => {

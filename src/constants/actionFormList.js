@@ -1,3 +1,6 @@
+/* 
+    Сервис формирования action для dispatch, на входе имя элемента
+ */
 export const actionValid = nameElement => ({
     type: 'setIsValid',
     nameElement,
